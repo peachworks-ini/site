@@ -1,0 +1,163 @@
+/* Strict Font Declaration */
+@font-face {
+    font-family: 'Iosevka Charon Mono';
+    src: local('Iosevka Charon Mono'), 
+         local('Iosevka-Charon-Mono'),
+         url('fonts/IosevkaCharonMono.ttf') format('truetype');
+}
+
+/* Global Force Override & Asset Protection */
+* {
+    font-family: 'Iosevka Charon Mono', monospace !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    -webkit-user-drag: none !important;
+}
+
+img, video {
+    pointer-events: none;
+}
+
+body, html {
+    margin: 0; padding: 0; height: 100vh; width: 100vw;
+    background-color: #000000;
+    color: #6884a1;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+}
+
+/* Deep metallic blue radial spotlight */
+.spotlight-bg {
+    position: fixed; inset: 0; z-index: -2;
+    background: radial-gradient(circle at 50% 50%, #1b4273 0%, #000000 70%);
+}
+
+/* Main 2/3 Scaled Container with CRT Curvature */
+#main-container {
+    width: 95vw; height: 90vh;
+    max-width: 1200px; max-height: 800px;
+    @media (min-width: 1024px) {
+        width: 70vw; height: 75vh;
+    }
+    background-color: #030a11;
+    border: 1px solid #2a4365;
+    
+    border-radius: 18px;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.9), 0 0 15px rgba(27, 66, 115, 0.5);
+    position: relative;
+    display: none; 
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* CRT Glass & Vignette Overlay */
+#main-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.9), inset 0 0 15px rgba(198, 214, 232, 0.05);
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Boot up animation */
+.crt-reveal {
+    display: flex !important;
+    animation: choppy-boot 0.4s step-end forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes choppy-boot {
+    0%   { transform: scale(0.01, 0.01); opacity: 0; }
+    20%  { transform: scale(0.5, 0.02); opacity: 1; }
+    40%  { transform: scale(1.0, 0.02); opacity: 1; }
+    60%  { transform: scale(1.0, 0.4); opacity: 1; }
+    80%  { transform: scale(1.0, 0.8); opacity: 1; }
+    100% { transform: scale(1.0, 1.0); opacity: 1; }
+}
+
+/* Inner panel CRT animation */
+.animate-inner-crt {
+    animation: inner-crt-boot 0.25s step-end forwards;
+    transform-origin: center;
+}
+
+@keyframes inner-crt-boot {
+    0%   { transform: scaleX(0.01) scaleY(0.01); opacity: 0; }
+    25%  { transform: scaleX(0.5) scaleY(0.01); opacity: 1; }
+    50%  { transform: scaleX(1.0) scaleY(0.01); opacity: 1; }
+    75%  { transform: scaleX(1.0) scaleY(0.4); opacity: 1; }
+    100% { transform: scaleX(1.0) scaleY(1.0); opacity: 1; }
+}
+
+/* Modal Expand Animation */
+.modal-expand {
+    animation: modal-expand-anim 0.3s step-end forwards;
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+@keyframes modal-expand-anim {
+    0%   { transform: scale(0.01, 0.01); opacity: 0; }
+    33%  { transform: scale(1.0, 0.02); opacity: 1; }
+    66%  { transform: scale(1.0, 0.5); opacity: 1; }
+    100% { transform: scale(1.0, 1.0); opacity: 1; }
+}
+
+/* Faint grid background */
+.grid-bg {
+    background-image: 
+        linear-gradient(to right, rgba(42, 67, 101, 0.15) 1px, transparent 1px), 
+        linear-gradient(to bottom, rgba(42, 67, 101, 0.15) 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-position: center center;
+}
+
+/* CRT Scanlines optimized for GPU */
+.scanlines {
+    position: absolute; inset: 0; z-index: 50; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    background-size: 100% 4px; opacity: 0.7;
+    will-change: opacity, background-position;
+}
+
+/* Stretching Navigation Tabs */
+.nav-tab {
+    flex: 1; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid #2a4365; cursor: pointer;
+    text-align: center; background: #030a11; color: #6884a1;
+    transition: all 0.2s;
+}
+.nav-tab:last-child { border-right: none; }
+.nav-tab:hover { background: rgba(42, 67, 101, 0.3); color: #c6d6e8; }
+.nav-tab.active { background: rgba(42, 67, 101, 0.6); color: #c6d6e8; }
+.nav-tab.active::before { content: '['; margin-right: 8px; color: #6884a1; }
+.nav-tab.active::after { content: ']'; margin-left: 8px; color: #6884a1; }
+
+/* Dossier Sections optimized */
+.dossier-section { 
+    display: none; height: 100%; width: 100%; flex-direction: column; overflow: hidden; 
+    will-change: transform, opacity;
+}
+.dossier-section.active { display: flex; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #030a11; border: 1px solid #2a4365; }
+::-webkit-scrollbar-thumb { background: #2a4365; }
+::-webkit-scrollbar-thumb:hover { background: #6884a1; }
+
+/* Custom Video Progress Slider */
+.slider-custom { -webkit-appearance: none; width: 100%; background: transparent; outline: none; }
+.slider-custom::-webkit-slider-runnable-track { height: 4px; background: #153152; border: 1px solid #000; cursor: pointer;}
+.slider-custom::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 14px; background: #c6d6e8; margin-top: -6px; cursor: pointer; border-radius: 0; border: 1px solid #000; }
+
+/* Utility animations */
+.spin-hex { animation: spin 1.5s steps(6) infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.blink-fast { animation: blink 1s step-start infinite; }
+@keyframes blink { 50% { opacity: 0; } }
