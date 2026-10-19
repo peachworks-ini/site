@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<!--
+Copyright - peachworks ©
+Email - peachworks.ini@gmail.com, peachworks.ini@icloud.com
+Revision Date - 2026-10-18
+Revision Code - 20261018_v0.0.01
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about - peachworks</title>
+    <link rel="icon" type="image/png" href="media/pictures/favicon.png">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=Space+Mono&family=Syne:wght@700;800&display=swap');
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #000;
+            color: #f5f5f7;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+
+        ::selection {
+            background: #fff;
+            color: #000;
+        }
+
+        img, video, svg {
+            display: block;
+            max-width: 100%;
+        }
+
+        img, video {
+            -webkit-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+
+        a, button, select {
+            pointer-events: auto;
+            color: inherit;
+            text-decoration: none;
+            font: inherit;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(29, 29, 31, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-bar {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-link {
+            display: flex;
+            align-items: center;
+            transition: opacity 0.2s;
+        }
+
+        .brand-link:hover {
+            opacity: 0.8;
+        }
+
+        .brand-link img {
+            height: 2rem;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .divider {
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+            margin-left: 0.25rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        nav a {
+            transition: color 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #fff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .clock-display {
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 10px;
+            font-family: 'Space Mono', monospace;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .clock-divider {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-links a {
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+        }
+
+        .social-links svg {
+            width: 1rem;
+            height: 1rem;
+            fill: currentColor;
+        }
+
+        .about-hero {
+            padding: 10rem 1.5rem 5rem;
+            max-width: 80rem;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: #0098d4;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-wrapper {
+            margin-bottom: 2rem;
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        #about-hero-logo {
+            width: 75vw;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+            clip-path: inset(0 100% 0 0);
+            -webkit-clip-path: inset(0 100% 0 0);
+        }
+
+        .about-text {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 48rem;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.625;
+        }
+
+        .banner-wrap {
+            padding: 0 1.5rem;
+            max-width: 80rem;
+            margin: 0 auto 8rem;
+        }
+
+        .img-reveal-container {
+            width: 100%;
+            aspect-ratio: 21 / 9;
+            background: #111113;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            clip-path: inset(10% 10% 10% 10% round 24px);
+            -webkit-clip-path: inset(10% 10% 10% 10% round 24px);
+            will-change: clip-path, transform;
+        }
+
+        #hero-bts-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1);
+            opacity: 0.7;
+        }
+
+        .banner-dim {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .placeholder-tag {
+            position: absolute;
+            font-family: 'Space Mono', monospace;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        #skills {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .skills-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+        }
+
+        .skills-header > div {
+            width: 100%;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
+            color: #0098d4;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .skills-sub {
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 24rem;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            width: 100%;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .skills-item {
+            background: #111113;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 1.5rem;
+        }
+
+        .skill-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: rgba(0, 152, 212, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0098d4;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-icon svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .item-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            margin-bottom: 0.75rem;
+        }
+
+        .item-desc {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.625;
+        }
+
+        #contact {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 6rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-box {
+            max-width: 48rem;
+        }
+
+        .contact-title {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .contact-sub {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.125rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .region-wrap {
+            margin-bottom: 2.5rem;
+            display: inline-block;
+        }
+
+        .region-box {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: #1c1c1e;
+            min-width: 250px;
+        }
+
+        .region-label {
+            display: block;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .region-name {
+            display: block;
+            color: #fff;
+            font-size: 1.125rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            font-size: 1.125rem;
+        }
+
+        .contact-heading {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .contact-link {
+            color: #0098d4;
+            transition: all 0.2s;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .email-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+            background: #000;
+        }
+
+        .footer-bar {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .lang-select {
+            position: relative;
+        }
+
+        .lang-select select {
+            appearance: none;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            padding-right: 1.25rem;
+            outline: none;
+            transition: color 0.2s;
+        }
+
+        .lang-select select:hover {
+            color: #fff;
+        }
+
+        .lang-select option {
+            background: #111113;
+            color: #fff;
+        }
+
+        .select-arrow {
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            padding: 0 0.25rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .select-arrow svg {
+            width: 0.75rem;
+            height: 0.75rem;
+            fill: currentColor;
+        }
+
+        @media (min-width: 640px) {
+            .clock-display { display: flex; }
+            .tagline { font-size: 0.875rem; }
+            .about-text { font-size: 1.5rem; }
+            .img-reveal-container { aspect-ratio: 16 / 9; }
+            .section-title, .contact-title { font-size: 3rem; line-height: 1; }
+            .skills-sub { font-size: 1rem; }
+            .footer-bar { flex-direction: row; }
+        }
+
+        @media (min-width: 768px) {
+            #about-hero-logo { width: 45vw; }
+            .skills-header { flex-direction: row; }
+            .skills-header > div { width: auto; }
+            .skills-sub { margin-top: 0; width: auto; }
+            .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (min-width: 1024px) {
+            .skills-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-bar">
+            <div class="nav-left">
+                <a href="index.html" id="brand-top-link" class="brand-link">
+                    <img src="https://files.catbox.moe/yvvhtz.PNG" alt="Peachwerke Logo">
+                </a>
+                <span class="divider">|</span>
+                <nav>
+                    <a href="photography.html" data-i18n="nav_photo">photography</a>
+                    <a href="videography.html" data-i18n="nav_video">videography</a>
+                    <a href="#" class="active" data-i18n="nav_about">about</a>
+                </nav>
+            </div>
+            
+            <div class="nav-right">
+                <div class="clock-display">
+                    <span id="local-time">00:00:00 LOC</span>
+                    <span class="clock-divider">|</span>
+                    <span id="utc-time">00:00:00 UTC</span>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://x.com/peachworks_ini" target="_blank" rel="noopener" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/peachworks.ini/" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="https://www.youtube.com/@peachworks_en" target="_blank" rel="noopener" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <a href="https://www.twitch.tv/frostleaf_ini" target="_blank" rel="noopener" aria-label="Twitch">
+                        <svg viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
+                    </a>
+                    <a href="https://github.com/peachworks-ini" target="_blank" rel="noopener" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="about-hero">
+        <p class="tagline reveal" data-i18n="about_tagline">CONTENT CREATOR // ENGINEER</p>
+        
+        <div class="logo-wrapper">
+            <img src="https://files.catbox.moe/9gwhpd.svg" alt="PEACHWERKE" id="about-hero-logo">
+        </div>
+        
+        <p class="about-text reveal" data-i18n="about_bio">
+            peachworks was established under the idea that it would be my brand name that represented my ambitions - whether it was through content creation or engineering. I tend to be a very straightforward person when it comes to my views on life, but my mission as a whole goes beyond staying in between the lines.
+            <br><br>
+            - P
+        </p>
+    </section>
+
+    <section class="banner-wrap">
+        <div class="img-reveal-container">
+            <img src="THUMBNAIL_PLACEHOLDER.jpg" alt="Index Thumbnail Image" id="hero-bts-img">
+            <div class="banner-dim"></div>
+            <div class="placeholder-tag">Insert Thumbnail Image Here</div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="skills-header reveal">
+            <div>
+                <p class="section-label" data-i18n="skills_label">Capabilities</p>
+                <h2 class="section-title" data-i18n="skills_title">Skills</h2>
+            </div>
+            <p class="skills-sub" data-i18n="skills_sub">Things I am able to do....at least confidently.</p>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skills-item reveal">
+                <div class="skill-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="item-title" data-i18n="skill_video_title">Videography</h3>
+                <p class="item-desc" data-i18n="skill_video_desc">Self-taught, worked on many personal projects, alongside assisting in a broadcast journalism course at a high school.</p>
+            </div>
+
+            <div class="skills-item reveal">
+                <div class="skill-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </div>
+                <h3 class="item-title" data-i18n="skill_photo_title">Photography</h3>
+                <p class="item-desc" data-i18n="skill_photo_desc">Self-taught, mainly in street photography, planespotting, and portraits.</p>
+            </div>
+
+            <div class="skills-item reveal">
+                <div class="skill-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </div>
+                <h3 class="item-title" data-i18n="skill_eng_title">Engineering</h3>
+                <p class="item-desc" data-i18n="skill_eng_desc">I love to find ways, or solutions, towards issues that may quintessentially make larger changes in life. I do a lot of tinkering and finding out how things work.</p>
+            </div>
+
+            <div class="skills-item reveal">
+                <div class="skill-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </div>
+                <h3 class="item-title" data-i18n="skill_lead_title">Leadership</h3>
+                <p class="item-desc" data-i18n="skill_lead_desc">I have headed many ventures in my past, mainly being a club president of the anime club at my college, assisting a teacher at a high school, tutoring young children, and being a client contact for engineering projects.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-box reveal">
+            <h2 class="contact-title" data-i18n="contact_title">Contact</h2>
+            <p class="contact-sub" data-i18n="contact_sub">Get in contact with me over requests or inquiries.</p>
+
+            <div class="region-wrap">
+                <div class="region-box">
+                    <span class="region-label" data-i18n="contact_region_label">Operating Region</span>
+                    <span class="region-name" data-i18n="contact_region_name">United States</span>
+                </div>
+            </div>
+
+            <div class="contact-details">
+                <div>
+                    <p class="contact-heading" data-i18n="contact_direct_line">Direct Line</p>
+                    <a href="tel:1-909-727-1028" class="contact-link">1-909-727-1028 (US)</a>
+                </div>
+
+                <div>
+                    <div class="email-list">
+                        <a href="mailto:peachworks.ini@gmail.com" class="contact-link">peachworks.ini@gmail.com</a>
+                        <a href="mailto:peachworks.ini@icloud.com" class="contact-link">peachworks.ini@icloud.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-bar">
+            <div data-i18n="footer_copy">copyright &copy; 2026 peachworks. all rights reserved.</div>
+            
+            <div class="lang-select">
+                <select>
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateClocks() {
+            const localEl = document.getElementById('local-time');
+            const utcEl = document.getElementById('utc-time');
+            if (!localEl || !utcEl) return;
+
+            function tick() {
+                const now = new Date();
+                const lh = String(now.getHours()).padStart(2, '0');
+                const lm = String(now.getMinutes()).padStart(2, '0');
+                const ls = String(now.getSeconds()).padStart(2, '0');
+
+                const uh = String(now.getUTCHours()).padStart(2, '0');
+                const um = String(now.getUTCMinutes()).padStart(2, '0');
+                const us = String(now.getUTCSeconds()).padStart(2, '0');
+
+                localEl.textContent = `${lh}:${lm}:${ls} LOC`;
+                utcEl.textContent = `${uh}:${um}:${us} UTC`;
+            }
+
+            tick();
+            setInterval(tick, 1000);
+        }
+
+        function disableShortcuts() {
+            window.oncontextmenu = () => false;
+            window.ondragstart = () => false;
+
+            window.addEventListener('keydown', (e) => {
+                const key = (e.key || '').toLowerCase();
+                const mod = e.ctrlKey || e.metaKey;
+
+                if (e.key === 'F12' || (mod && ['s', 'c', 'u', 'p'].includes(key))) {
+                    e.preventDefault();
+                    return false;
+                }
+                if (mod && (e.shiftKey || e.altKey) && ['i', 'j', 'c'].includes(key)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        }
+
+        function initAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const logo = document.getElementById('about-hero-logo');
+            if (logo) {
+                if (!sessionStorage.getItem('aboutLogoAnimated')) {
+                    gsap.to(logo, {
+                        clipPath: 'inset(0 0% 0 0)',
+                        webkitClipPath: 'inset(0 0% 0 0)',
+                        duration: 1.6,
+                        ease: 'power3.inOut',
+                        delay: 0.2,
+                        onComplete: () => sessionStorage.setItem('aboutLogoAnimated', 'true')
+                    });
+                } else {
+                    gsap.set(logo, {
+                        clipPath: 'inset(0 0% 0 0)',
+                        webkitClipPath: 'inset(0 0% 0 0)'
+                    });
+                }
+            }
+
+            gsap.utils.toArray('.reveal').forEach((el) => {
+                gsap.fromTo(el,
+                    { y: 30, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 90%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            });
+
+            gsap.to('.img-reveal-container', {
+                clipPath: 'inset(0% 0% 0% 0% round 36px)',
+                webkitClipPath: 'inset(0% 0% 0% 0% round 36px)',
+                scrollTrigger: {
+                    trigger: '.img-reveal-container',
+                    start: 'top 85%',
+                    end: 'center center',
+                    scrub: 0.5
+                }
+            });
+
+            gsap.to('#hero-bts-img', {
+                scale: 1,
+                scrollTrigger: {
+                    trigger: '.img-reveal-container',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateClocks();
+            disableShortcuts();
+            initAnimations();
+        });
+
+        // --- TRANSLATION ENGINE (ABOUT PAGE) ---
+        const dictionary = {
+            en: {
+                nav_photo: "photography",
+                nav_video: "videography",
+                nav_about: "about",
+                about_tagline: "CONTENT CREATOR // ENGINEER",
+                about_bio: "peachworks was established under the idea that it would be my brand name that represented my ambitions - whether it was through content creation or engineering. I tend to be a very straightforward person when it comes to my views on life, but my mission as a whole goes beyond staying in between the lines.<br><br>- P",
+                skills_label: "Capabilities",
+                skills_title: "Skills",
+                skills_sub: "Things I am able to do....at least confidently.",
+                skill_video_title: "Videography",
+                skill_video_desc: "Self-taught, worked on many personal projects, alongside assisting in a broadcast journalism course at a high school.",
+                skill_photo_title: "Photography",
+                skill_photo_desc: "Self-taught, mainly in street photography, planespotting, and portraits.",
+                skill_eng_title: "Engineering",
+                skill_eng_desc: "I love to find ways, or solutions, towards issues that may quintessentially make larger changes in life. I do a lot of tinkering and finding out how things work.",
+                skill_lead_title: "Leadership",
+                skill_lead_desc: "I have headed many ventures in my past, mainly being a club president of the anime club at my college, assisting a teacher at a high school, tutoring young children, and being a client contact for engineering projects.",
+                contact_title: "Contact",
+                contact_sub: "Get in contact with me over requests or inquiries.",
+                contact_region_label: "Operating Region",
+                contact_region_name: "United States",
+                contact_direct_line: "Direct Line",
+                footer_copy: "copyright © 2026 peachworks. all rights reserved."
+            },
+            de: {
+                nav_photo: "fotografie",
+                nav_video: "videografie",
+                nav_about: "über mich",
+                about_tagline: "CONTENT CREATOR // INGENIEUR",
+                about_bio: "peachworks wurde mit der Idee gegründet, dass es mein Markenname sein würde, der meine Ambitionen repräsentiert – sei es durch Content-Erstellung oder Ingenieurwesen. Ich bin tendenziell ein sehr geradliniger Mensch, wenn es um meine Ansichten über das Leben geht, aber meine Mission als Ganzes geht darüber hinaus, nur innerhalb der vorgegebenen Linien zu bleiben.<br><br>- P",
+                skills_label: "Fähigkeiten",
+                skills_title: "Kompetenzen",
+                skills_sub: "Dinge, die ich tun kann....zumindest mit Zuversicht.",
+                skill_video_title: "Videografie",
+                skill_video_desc: "Autodidakt, habe an vielen persönlichen Projekten gearbeitet und bei einem Kurs für Rundfunkjournalismus an einer High School assistiert.",
+                skill_photo_title: "Fotografie",
+                skill_photo_desc: "Autodidakt, hauptsächlich in der Straßenfotografie, beim Planespotting und bei Porträts.",
+                skill_eng_title: "Ingenieurwesen",
+                skill_eng_desc: "Ich liebe es, Wege oder Lösungen für Probleme zu finden, die im Wesentlichen größere Veränderungen im Leben bewirken können. Ich bastele viel und finde gerne heraus, wie Dinge funktionieren.",
+                skill_lead_title: "Führung",
+                skill_lead_desc: "Ich habe in meiner Vergangenheit viele Unternehmungen geleitet, hauptsächlich als Clubpräsident des Anime-Clubs an meinem College, als Assistent eines Lehrers an einer High School, als Nachhilfelehrer für kleine Kinder und als Kundenkontakt für Ingenieurprojekte.",
+                contact_title: "Kontakt",
+                contact_sub: "Kontaktieren Sie mich für Anfragen oder Auskünfte.",
+                contact_region_label: "Einsatzgebiet",
+                contact_region_name: "Vereinigte Staaten",
+                contact_direct_line: "Direktwahl",
+                footer_copy: "copyright © 2026 peachworks. alle rechte vorbehalten."
+            },
+            es: {
+                nav_photo: "fotografía",
+                nav_video: "videografía",
+                nav_about: "sobre mí",
+                about_tagline: "CREADOR DE CONTENIDO // INGENIERO",
+                about_bio: "peachworks se estableció bajo la idea de que sería mi nombre de marca que representaría mis ambiciones, ya sea a través de la creación de contenido o la ingeniería. Suelo ser una persona muy directa cuando se trata de mis puntos de vista sobre la vida, pero mi misión en general va más allá de mantenerme dentro de lo establecido.<br><br>- P",
+                skills_label: "Capacidades",
+                skills_title: "Habilidades",
+                skills_sub: "Cosas que puedo hacer....al menos con confianza.",
+                skill_video_title: "Videografía",
+                skill_video_desc: "Autodidacta, he trabajado en muchos proyectos personales, además de asistir en un curso de periodismo televisivo en una escuela secundaria.",
+                skill_photo_title: "Fotografía",
+                skill_photo_desc: "Autodidacta, principalmente en fotografía callejera, observación de aviones y retratos.",
+                skill_eng_title: "Ingeniería",
+                skill_eng_desc: "Me encanta encontrar formas, o soluciones, a problemas que esencialmente pueden hacer grandes cambios en la vida. Hago muchos ajustes y descubro cómo funcionan las cosas.",
+                skill_lead_title: "Liderazgo",
+                skill_lead_desc: "He dirigido muchas empresas en mi pasado, principalmente siendo presidente del club de anime en mi universidad, asistiendo a un maestro en una escuela secundaria, dando clases particulares a niños pequeños y siendo un contacto de clientes para proyectos de ingeniería.",
+                contact_title: "Contacto",
+                contact_sub: "Póngase en contacto conmigo para solicitudes o consultas.",
+                contact_region_label: "Región de Operación",
+                contact_region_name: "Estados Unidos",
+                contact_direct_line: "Línea Directa",
+                footer_copy: "copyright © 2026 peachworks. todos los derechos reservados."
+            }
+        };
+
+        const langSelect = document.querySelector('.lang-select select');
+
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dictionary[lang] && dictionary[lang][key]) {
+                    el.innerHTML = dictionary[lang][key];
+                }
+            });
+            localStorage.setItem('peachLang', lang);
+            if(langSelect) langSelect.value = lang;
+        }
+
+        if(langSelect) {
+            langSelect.addEventListener('change', (e) => {
+                setLanguage(e.target.value);
+            });
+        }
+
+        const savedLang = localStorage.getItem('peachLang') || 'en';
+        setLanguage(savedLang);
+    </script>
+</body>
+</html>
